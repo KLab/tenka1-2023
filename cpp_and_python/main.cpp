@@ -250,11 +250,13 @@ struct GameLogic {
     }
 };
 
-GameLogic call_move(const string& dir1, const string& dir2) {
+pair<GameLogic, bool> call_move(const string& dir1, const string& dir2) {
     cout << dir1 << " " << dir2 << endl;
     int64_t now;
     GameLogic r;
-    cin >> now >> r.turn;
+    if (!(cin >> now >> r.turn)) {
+        return {r, false};
+    }
     r.move.resize(6);
     for (auto& x : r.move) {
         cin >> x;
@@ -279,7 +281,7 @@ GameLogic call_move(const string& dir1, const string& dir2) {
     for (auto& x : r.special) {
         cin >> x;
     }
-    return r;
+    return {r, true};
 }
 
 struct Program {
@@ -299,7 +301,11 @@ struct Program {
         auto next_dir5 = to_string(uniform_int_distribution<>(0, 3)(mt));
         for (;;) {
             // 移動APIを呼ぶ
-            auto move = call_move(next_dir0, next_dir5);
+            auto move_response = call_move(next_dir0, next_dir5);
+            if (!move_response.second) {
+                break;
+            }
+            auto move = move_response.first;
             cerr << "turn = " << move.turn << endl;
             cerr << "score = " << move.score[0] << " " << move.score[1] << " " << move.score[2] << endl;
             // 4方向で移動した場合を全部シミュレーションする

@@ -103,6 +103,7 @@ class Program:
             assert len(move['special']) == 6
             p.stdin.write((' '.join(str(x) for x in move['special']) + '\n').encode())
             p.stdin.flush()
+        p.stdin.close()
 
 
 if __name__ == "__main__":
