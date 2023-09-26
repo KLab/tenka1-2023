@@ -32,20 +32,60 @@
 
 ## コンテスト結果
 
+### 予選
+- [予選終了時のランキング](result/qual.tsv)
+
 ### 決勝
 
 - [決勝の各ゲームの結果](result/final.tsv)
 
-| 順位 | 予選リーグ順位 | ユーザID | 順位ポイント合計 |
+| 順位 | ユーザID | 順位ポイント合計 | 予選リーグ順位 |
 | - | - | - | - |
-| 1 | 3 | eijirou | 10 |
-| 2 | 1 | besukohu | 8 |
-| 3 | 5 | montplusa | 4 |
-| 4 | 6 | kawasin73 | 2 |
-| 5 | 8 | yokozuna57 | 2 |
-| 6 | 2 | Risen | -8 |
-| 7 | 4 | takumi152 | -8 |
-| 8 | 7 | itigokunn | -10 |
+| 1 | eijirou | 10 | 3 |
+| 2 | besukohu | 8 | 1 |
+| 3 | montplusa | 4 | 5 |
+| 4 | kawasin73 | 2 | 6 |
+| 5 | yokozuna57 | 2 | 8 |
+| 6 | Risen | -8 | 2 |
+| 7 | takumi152 | -8 | 4 |
+| 8 | itigokunn | -10 | 7 |
+
+## ゲームサーバのプログラム
+
+- [APIサーバとマッチングサーバ](game)
+
+## ローカル実行
+ゲームサーバーを手元で動かせる環境を用意しました。
+
+docker をインストールした環境で、以下のコマンドを実行してください。
+
+起動
+```
+$ docker compose up
+```
+
+ユーザー登録
+```
+# ユーザID: user0001 トークン: token0001 のユーザーを作成
+$ docker compose exec gamedb redis-cli HSET user_token token0001 user0001
+```
+
+以下のURLでAPIとビジュアライザにアクセス可能です。
+- http://localhost:8008/api/move/token0001/1/1
+- http://localhost:8008/visualizer/index.html?token=token0001
+
+Runnerを使用する場合は、Runnerを起動して設定を以下のように変更します。
+- GameServer: `localhost:8008`
+
+## ビジュアライザで使用したライブラリ等
+
+- ビジュアライザ本体 © 2023 KLab Inc. All rights reserved.
+- Game BGM and SE by KLab Sound Team © 2023 KLab Inc. All rights reserved.
+- [DOTween © 2014 Daniele Giardini - Demigiant](http://dotween.demigiant.com)
+- [Hurisake.JsonDeserializer by hasipon](https://github.com/hasipon/Hurisake.JsonDeserializer)
+- [Rajdhani (OFL) © Indian Type Foundry](https://fonts.google.com/specimen/Rajdhani)
+- [Bootstrap Icons (MIT) © The Bootstrap Authors](https://github.com/twbs/icons)
+- [Rank 3 icon (CC BY 3.0) © Skoll](https://game-icons.net/1x1/skoll/rank-3.html)
 
 ## ルール
 
@@ -66,3 +106,4 @@
 
 - [ギフトカード抽選プログラム](lottery)
   - 抽選対象は join API で開始したゲームに一度以上 move API を実行した参加者です
+- [joinで開始した各ゲームのmoveデータ](result/moves.zip) (zip)
