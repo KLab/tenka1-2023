@@ -2,7 +2,6 @@
 
 - [公式サイト](https://tenka1.klab.jp/2023/)
 - [YouTube配信](https://www.youtube.com/watch?v=PxG2794Ujfg)
-- [ポータルサイト](https://gbc2023.tenka1.klab.jp/portal/index.html)
 
 ## ドキュメント
 
